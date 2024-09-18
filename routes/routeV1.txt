@@ -1,0 +1,11 @@
+package routes
+
+import (
+	"github.com/gofiber/fiber/v2"
+)
+
+func RouteV1() {
+	v1 := fiber.New();
+
+	v1.Get('/', func(req *http.Request) (*http.Response, error) {});
+}
