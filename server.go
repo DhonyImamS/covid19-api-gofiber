@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"covid19-api-gofiber/controller"
+	"covid19-api-gofiber/routes"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	})
 
 	app.Get("/", healthCheck)
-	app.Get("/patients", handlerGetPatients)
+	routes.RouteV1(app)
 
 	app.Listen(":3000")
 }
@@ -27,12 +27,4 @@ func healthCheck(c *fiber.Ctx) error {
 	}
 
 	return nil;
-}
-
-func handlerGetPatients(c *fiber.Ctx) error {
-	patientController := controller.PatientController{};
-
-	result := patientController.GetAll(c);
-
-	return result;
 }
