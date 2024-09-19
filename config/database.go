@@ -53,12 +53,21 @@ func CreateConnection() *gorm.DB {
 	dbCfg := dbConfig{};
 	dbCfg.initDBEnv();
 
-	db, err := gorm.Open(mysql.Open(dbCfg.initConnectionString()), &gorm.Config{})
+	db, err2 := gorm.Open(mysql.Open(dbCfg.initConnectionString()), &gorm.Config{})
 
-	if err!= nil {
+	if err2!= nil {
 		fmt.Println(os.Getenv("DB_HOST"))
         panic("Failed to connect to database!")
     }
 
 	return db;
+}
+
+func CloseConnection(dbCtx *gorm.DB) {
+	db, err := dbCtx.DB();
+	
+	if err!= nil {
+        panic(err)
+    }
+	defer db.Close()
 }
