@@ -2,6 +2,7 @@ package controller
 
 import (
 	"covid19-api-gofiber/model"
+	"covid19-api-gofiber/types"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -12,5 +13,18 @@ func (pc *PatientController) GetAll(c *fiber.Ctx) error {
 
 	result := patientModel.All();
 
-	return c.JSON(result);
+	if len(result) < 1 {
+		dataRes := types.ResponseEmpty{
+			Message:    "Data is empty",
+            StatusCode: 200,
+		};
+		return c.Status(fiber.StatusOK).JSON(dataRes);
+	} else {
+		dataRes := types.ResponseData{
+            Message:    "Get All Resource",
+            StatusCode: 200,
+            Data:       result,
+        };
+        return c.Status(fiber.StatusOK).JSON(dataRes);
+	}
 }
