@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/driver/mysql"
 	"fmt"
+	"log"
 	"os"
 	"github.com/joho/godotenv"
 )
@@ -47,7 +48,7 @@ func CreateConnection() *gorm.DB {
 	// Load the .env file
     err := godotenv.Load()
     if err != nil {
-        panic("Error loading .env file")
+        log.Println("Error loading .env file")
     }
 
 	dbCfg := dbConfig{};
@@ -56,8 +57,7 @@ func CreateConnection() *gorm.DB {
 	db, err2 := gorm.Open(mysql.Open(dbCfg.initConnectionString()), &gorm.Config{})
 
 	if err2!= nil {
-		fmt.Println(os.Getenv("DB_HOST"))
-        panic("Failed to connect to database!")
+        log.Printf("Failed to connect to database!, error: %v", err2)
     }
 
 	return db;
@@ -67,7 +67,7 @@ func CloseConnection(dbCtx *gorm.DB) {
 	db, err := dbCtx.DB();
 	
 	if err!= nil {
-        panic(err)
+        log.Println(err)
     }
 	defer db.Close()
 }

@@ -1,10 +1,8 @@
 package model
 
 import (
-	// "time"
 	"covid19-api-gofiber/config"
 	"errors"
-	"fmt"
 )
 
 // Patient mapped from table <patients>
