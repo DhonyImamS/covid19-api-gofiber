@@ -19,7 +19,7 @@ func (pc *PatientController) GetAll(c *fiber.Ctx) error {
 	if err != nil { 
 		log.Println(err)
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-            "error": err,
+            "error": err.Error(),
         })
 	}
 
@@ -64,7 +64,7 @@ func (pc *PatientController) Store(c *fiber.Ctx) error {
 	if err1 != nil { 
 		log.Println(err)
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-            "error": err1,
+            "error": err1.Error(),
         })
 	}
 
